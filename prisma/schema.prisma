@@ -9,3 +9,70 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Componente {
+  id Int @id @default(autoincrement())
+  nome String
+
+  ordemServico OrdemServico[]
+}
+
+model Dependencia {
+  id Int @id @default(autoincrement())
+  nome String
+  identificacaoSeq String
+  siglaDependencia String
+
+  ordemServico OrdemServico[]
+}
+
+model Localizacao{
+  id Int @id @default(autoincrement())
+  nome String
+  siglaLocalizacao String
+
+  ordemServico OrdemServico[]
+}
+
+enum TipoUsuario{
+  ADMINISTRADOR 
+  ALUNO
+}
+
+enum Status{
+  CANCELADO
+  PENDENTE
+  COMPLETO
+  AGUARDANDO
+}
+
+model OrdemServico{
+  id Int @id @default(autoincrement())
+  descricao String
+  imagem String
+  data DateTime
+  status Status
+
+  componente Componente @relation(fields: [componenteId], references: [id])
+  componenteId Int
+
+  dependencia Dependencia @relation(fields: [dependenciaId], references: [id])
+  dependenciaId Int
+
+  localizacao Localizacao @relation(fields: [localizacaoId], references: [id])
+  localizacaoId Int
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+}
+
+model Usuario{
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  ra String
+  senha String
+  cargo TipoUsuario
+
+  ordemServico OrdemServico[]
+}
