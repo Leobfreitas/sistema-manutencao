@@ -1,7 +1,7 @@
 import { JWT_SECRET } from "$env/static/private";
 import type { Usuario } from "@prisma/client";
 import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 export async function hashSenha(senha: string){
     const salt = await bcrypt.genSalt(10);
@@ -14,4 +14,12 @@ export async function comparaSenha(senha: string, hash: string){
 
 export async function geraToken(usuario: Usuario){
     return jwt.sign(usuario, JWT_SECRET);
+}
+
+export async function decodificaToken(token: string){
+    return jwt.decode(token) as Usuario;
+}
+
+export async function verificaToken(token: string){
+    return jwt.verify(token, JWT_SECRET);
 }
