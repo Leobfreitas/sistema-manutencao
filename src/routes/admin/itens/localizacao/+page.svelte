@@ -5,7 +5,7 @@
 </script>
 
 <div class="container">
-    <form method="post">
+    <form method="post" action="?/create">
         <div class="row">
             <div class="col-8 mb-3">
                 <input

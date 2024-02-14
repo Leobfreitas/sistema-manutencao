@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "OrdemServico" ALTER COLUMN "descricao" DROP NOT NULL,
+ALTER COLUMN "BP" DROP NOT NULL;

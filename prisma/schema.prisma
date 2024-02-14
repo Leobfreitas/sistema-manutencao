@@ -48,8 +48,8 @@ enum Status{
 
 model OrdemServico{
   id Int @id @default(autoincrement())
-  descricao String
-  BP String
+  descricao String?
+  BP String?
   imagem String?
   data DateTime @default(now())
   status Status
