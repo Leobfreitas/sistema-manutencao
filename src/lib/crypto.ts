@@ -1,7 +1,9 @@
-import { JWT_SECRET } from "$env/static/private";
 import type { Usuario } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import "dotenv/config";
+
+const JWT_SECRET = process.env.JWT_SECRET ?? "batata";
 
 export async function hashSenha(senha: string){
     const salt = await bcrypt.genSalt(10);
