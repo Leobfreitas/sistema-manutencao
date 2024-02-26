@@ -1,6 +1,35 @@
 <script lang="ts">
     import { page } from "$app/stores";
 
+    let sidebar:HTMLDivElement;
+    let main:HTMLDivElement;
+
+    function openNav() {
+        sidebar.style.width = "250px";
+        main.style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        sidebar.style.width = "0";
+        main.style.marginLeft = "0";
+    }
+
+    let dropdownButton:HTMLButtonElement;
+
+    // Adicionando funcionalidade para o dropdown
+    function Dropdown() {
+        dropdownButton.classList.toggle('active');
+        var dropdownContainer = dropdownButton.nextElementSibling as HTMLElement;
+        if(!dropdownContainer){
+            return;
+        }
+        if (dropdownContainer.style.display === 'block') {
+            dropdownContainer.style.display = 'none';
+        } else {
+            dropdownContainer.style.display = 'block';
+        }
+    };
+
     const abas = [
         {
             nome: "Localização",
@@ -16,15 +45,12 @@
         },
     ];
 </script>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<svelte:head>
     <title>Página de Administração</title>
     
-  </head> 
+</svelte:head> 
   
-<body>
-   <div class="container">
+<div class="container">
         <div class="row justify-content-center mb-3">
             {#each abas as aba}
                 <div class="col-4 ">
@@ -43,12 +69,12 @@
         <div class="row justify-content-center">
             <div class="col-12">
     
-            <div class="sidebar" id="mySidebar">
+            <div class="sidebar" id="mySidebar" bind:this={sidebar}>
                 <!-- svelte-ignore a11y-invalid-attribute -->
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                <button class="closebtn" on:click={closeNav}>×</button>
                 <img src="/unioesteimg.png" alt="Logo" style="width: 100%; padding: 20px;">
             
-                <button class="dropdown-btn btn-outline-secondary dropdown-toggle">MENU
+                <button class="dropdown-btn btn-outline-secondary dropdown-toggle" bind:this={dropdownButton} on:click={Dropdown}>MENU
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-container">
@@ -58,38 +84,15 @@
                 </div>
             </div>
     
-            <div id="main">
-                <button class="openbtn" onclick="openNav()">☰</button>  
+            <div id="main" bind:this={main}>
+                <button class="openbtn" on:click={openNav}>☰</button>  
             </div>
         </div>
     </div>
 </div>
 
 
-<script>
-    function openNav() {
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-    }
 
-    function closeNav() {
-        document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-    }
-
-    // Adicionando funcionalidade para o dropdown
-    var btn = document.querySelector('.dropdown-btn');
-    btn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        var dropdownContainer = this.nextElementSibling;
-        if (dropdownContainer.style.display === 'block') {
-            dropdownContainer.style.display = 'none';
-        } else {
-            dropdownContainer.style.display = 'block';
-        }
-    });
-</script>
-</body>
 <slot/> 
 <style>
 
