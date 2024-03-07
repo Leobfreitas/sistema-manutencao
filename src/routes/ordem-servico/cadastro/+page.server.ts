@@ -1,11 +1,10 @@
-import { prisma } from "$lib";
-import { decodificaToken, verificaToken } from "$lib/crypto";
+import { getUserFromToken, prisma } from "$lib";
 import { error } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { Status } from "@prisma/client";
 import { writeFileSync } from "fs";
 
-export const load: PageServerLoad = async ({ cookies }) => {
+export const load: PageServerLoad = async () => {
     const componentes = await prisma.componente.findMany();
     const localizacoes = await prisma.localizacao.findMany();
     const dependencias = await prisma.dependencia.findMany();
@@ -21,12 +20,8 @@ export const actions = {
     create: async ({ request, cookies }) => {
 
         const token = cookies.get("token");
-
-        if (!token || !await verificaToken(token)) {
-            throw error(401, "Usuário não autorizado");
-        }
-
-        const usuario = await decodificaToken(token);
+        const usuario = await getUserFromToken(token);
+        if (!usuario) throw error(401, "Usuário não autenticado");
 
         const data = await request.formData();
         const OS = {
@@ -58,6 +53,7 @@ export const actions = {
         })
 
         const imagem = data.get("imagem") as File;
+        if (!imagem || imagem.size === 0) return;
 
         const caminhoImagem = `uploaded/imagens-OS/${resultado.id}_${imagem.name}`;
         writeFileSync(caminhoImagem, Buffer.from(await imagem.arrayBuffer()));

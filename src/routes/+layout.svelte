@@ -3,6 +3,7 @@
   import "../style/main.scss";
   import type { LayoutData } from "./$types";
   import { onNavigate } from "$app/navigation";
+  import { TipoUsuario } from "prisma/prisma-client";
 
   export let data: LayoutData;
 
@@ -45,12 +46,18 @@
         class="d-flex flex-column flex-lg-row align-items-baseline justify-content-between w-100"
       >
         <ul class="navbar-nav order-2 order-lg-1">
-          <li class="nav-item">
-            <a href="/" class="nav-link">Ordens de Serviço</a>
-          </li>
-          <li class="nav-item">
-            <a href="/" class="nav-link">Administração</a>
-          </li>
+          {#if data.usuario}
+            <li class="nav-item">
+              <a href="/ordem-servico" class="nav-link"> Ordens de Serviço </a>
+            </li>
+            {#if data.usuario.cargo == "ADMINISTRADOR"}
+              <li class="nav-item">
+                <a href="/admin/itens/localizacao" class="nav-link">
+                  Administração
+                </a>
+              </li>
+            {/if}
+          {/if}
         </ul>
         <div class="order-1 order-lg-2 mt-3 mt-lg-0">
           {#if data.usuario}
