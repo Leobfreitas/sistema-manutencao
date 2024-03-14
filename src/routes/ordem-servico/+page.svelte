@@ -14,7 +14,7 @@
     localizacao,
     dependencia,
     componente,
-    status,
+    status
   );
 
   function filtrar(
@@ -22,7 +22,7 @@
     localizacao: string,
     dependencia: string,
     componente: string,
-    status: string,
+    status: string
   ) {
     return (
       data.ordensDeServico?.filter((os) => {
@@ -39,9 +39,9 @@
 </script>
 
 <div class="container mt-5">
-  <a href="/ordem-servico/cadastro" class="btn btn-success mb-3">+ Nova</a>
+  <a href="/ordem-servico/cadastro" class="btn btn-primary mb-3">+ Nova</a>
   <div class="row mb-3">
-    <div class="col-2">
+    <div class="col-12 col-lg-2 mb-2">
       <label for="usuario" class="form-label">Nome Usuário</label>
       <input
         type="text"
@@ -51,7 +51,7 @@
         bind:value={usuario}
       />
     </div>
-    <div class="col-3">
+    <div class="col-12 col-lg-3 mb-2">
       <label for="localizacao" class="form-label">Nome da Localização</label>
       <input
         type="text"
@@ -61,7 +61,7 @@
         bind:value={localizacao}
       />
     </div>
-    <div class="col-2">
+    <div class="col-12 col-lg-2 mb-2">
       <label for="dependencia" class="form-label">Dependência</label>
       <input
         type="text"
@@ -71,7 +71,7 @@
         bind:value={dependencia}
       />
     </div>
-    <div class="col-3">
+    <div class="col-12 col-lg-3 mb-2">
       <label for="componente" class="form-label">Nome do Componente</label>
       <input
         type="text"
@@ -81,7 +81,7 @@
         bind:value={componente}
       />
     </div>
-    <div class="col-2">
+    <div class="col-12 col-lg-2">
       <label for="status" class="form-label">Status da OS</label>
       <select class="form-select" id="status" bind:value={status}>
         <option value="TODOS" selected> Todos </option>
