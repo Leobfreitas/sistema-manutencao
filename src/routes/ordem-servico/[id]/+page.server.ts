@@ -6,6 +6,12 @@ export const load: PageServerLoad = async ({ params }) => {
   const os = await prisma.ordemServico.findUnique({
     where: {
       id: parseInt(params.id)
+    },
+    include: {
+      componente: true,
+      dependencia: true,
+      localizacao: true,
+      usuario: true
     }
   });
 

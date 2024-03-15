@@ -11,70 +11,85 @@ datasource db {
 }
 
 model Componente {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   nome String
 
   ordemServico OrdemServico[]
 }
 
 model Dependencia {
-  id Int @id @default(autoincrement())
-  nome String
+  id               Int    @id @default(autoincrement())
+  nome             String
   identificacaoSeq String
   siglaDependencia String
 
   ordemServico OrdemServico[]
 }
 
-model Localizacao{
-  id Int @id @default(autoincrement())
-  nome String
+model Localizacao {
+  id               Int    @id @default(autoincrement())
+  nome             String
   siglaLocalizacao String
 
   ordemServico OrdemServico[]
 }
 
-enum TipoUsuario{
-  ADMINISTRADOR 
+enum TipoUsuario {
+  ADMINISTRADOR
   ALUNO
 }
 
-enum Status{
-  CANCELADO 
-  PENDENTE //NOVA SOLICITAÇAO
-  COMPLETO //CONCLUIDO
-  AGUARDANDO //EM ESPERA *FATORES EXTERNOS A UNIVERSIDADE/ALUNO*
-  //EM ANALISE *RESPOSTA DO USUARIO*
+enum Status {
+  CANCELADO
+  NOVA_SOLICITACAO
+  CONCLUIDO
+  EM_ESPERA
+  EM_ANALISE
 }
 
-model OrdemServico{
-  id Int @id @default(autoincrement())
-  descricao String?
-  BP String?
-  imagem String?
-  data DateTime @default(now())
-  status Status
+model Mensagem {
+  id          Int      @id @default(autoincrement())
+  mensagem    String
+  dataCriacao DateTime @default(now())
 
-  componente Componente @relation(fields: [componenteId], references: [id])
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+
+  ordemServico   OrdemServico @relation(fields: [ordemServicoId], references: [id])
+  ordemServicoId Int
+}
+
+model OrdemServico {
+  id        Int      @id @default(autoincrement())
+  descricao String?
+  BP        String?
+  imagem    String?
+  data      DateTime @default(now())
+  status    Status
+
+  componente   Componente @relation(fields: [componenteId], references: [id])
   componenteId Int
 
-  dependencia Dependencia @relation(fields: [dependenciaId], references: [id])
+  dependencia   Dependencia @relation(fields: [dependenciaId], references: [id])
   dependenciaId Int
 
-  localizacao Localizacao @relation(fields: [localizacaoId], references: [id])
+  localizacao   Localizacao @relation(fields: [localizacaoId], references: [id])
   localizacaoId Int
 
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
   usuarioId Int
+
+  Mensagem Mensagem[]
 }
 
-model Usuario{
-  id Int @id @default(autoincrement())
-  nome String
-  email String @unique
-  ra String
+model Usuario {
+  id    Int         @id @default(autoincrement())
+  nome  String
+  email String      @unique
+  ra    String
   senha String
   cargo TipoUsuario
 
   ordemServico OrdemServico[]
+  mensagem     Mensagem[]
 }

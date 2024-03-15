@@ -55,16 +55,24 @@ export const actions = {
         const imagem = data.get("imagem") as File;
         if (!imagem || imagem.size === 0) return;
 
-        const caminhoImagem = `uploaded/imagens-OS/${resultado.id}_${imagem.name}`;
-        writeFileSync(caminhoImagem, Buffer.from(await imagem.arrayBuffer()));
-
-        console.log(await prisma.ordemServico.update({
-            where: {
-                id: resultado.id
-            },
-            data: {
-                imagem: caminhoImagem
-            }
-        }))
+        try {
+            const caminhoImagem = `uploaded/imagens-OS/${resultado.id}_${imagem.name}`;
+            writeFileSync(caminhoImagem, Buffer.from(await imagem.arrayBuffer()));
+            await prisma.ordemServico.update({
+                where: {
+                    id: resultado.id
+                },
+                data: {
+                    imagem: caminhoImagem
+                }
+            })
+        } catch (error) {
+            console.error('Erro ao gravar imagem, OS será deletada');
+            await prisma.ordemServico.delete({
+                where: {
+                    id: resultado.id
+                }
+            })
+        }
     }
 } satisfies Actions;

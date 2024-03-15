@@ -85,9 +85,10 @@
       <label for="status" class="form-label">Status da OS</label>
       <select class="form-select" id="status" bind:value={status}>
         <option value="TODOS" selected> Todos </option>
-        <option value="PENDENTE"> Pendente </option>
-        <option value="AGUARDANDO"> Aguardando </option>
-        <option value="COMPLETO"> Completo </option>
+        <option value="NOVA_SOLICITACAO"> Novas Solicitações </option>
+        <option value="EM_ESPERA"> Em Espera </option>
+        <option value="EM_ANALISE"> Em Analise </option>
+        <option value="CONCLUIDO"> Concluido </option>
         <option value="CANCELADO"> Cancelado </option>
       </select>
     </div>
