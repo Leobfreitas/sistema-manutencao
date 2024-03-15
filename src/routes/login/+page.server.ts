@@ -6,7 +6,7 @@ import { TipoUsuario } from "prisma/prisma-client";
 
 
 export const actions = {
-    default: async({request, cookies})=>{
+    default: async ({ request, cookies }) => {
         const data = await request.formData();
         const usuario = {
             email: data.get("email") as string,
@@ -19,11 +19,11 @@ export const actions = {
             }
         });
 
-        if(resultado == null){
+        if (resultado == null) {
             throw error(404, "Usuário não encontrado.");
         }
 
-        if(!await comparaSenha(usuario.senha, resultado.senha)){
+        if (!await comparaSenha(usuario.senha, resultado.senha)) {
             throw error(401, "Senha incorreta.");
         }
 
@@ -33,9 +33,9 @@ export const actions = {
             path: "/"
         })
 
-        switch(resultado.cargo){
+        switch (resultado.cargo) {
             case TipoUsuario.ADMINISTRADOR:
-                throw redirect(302, "/admin");
+                throw redirect(302, "/admin/itens/localizacao");
             case TipoUsuario.ALUNO:
                 throw redirect(302, "/aluno");
             default:

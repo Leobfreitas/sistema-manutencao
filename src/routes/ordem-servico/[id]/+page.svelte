@@ -6,30 +6,18 @@
 </script>
 
 <main class="container my-5">
-  <form
-    class="row"
-    action="?/update"
-    method="post"
-    use:enhance
-    enctype="multipart/form-data"
-  >
+  <form action="?/delete" method="post">
+    <input type="hidden" name="id" value={data.os.id} />
+    <button class="btn btn-danger">Excluir</button>
+  </form>
+  <div class="row">
     <div class="col-12 col-md-4 mb-3">
       <label for="id" class="form-label"> ID </label>
-      <input
-        type="text"
-        class="form-control"
-        value={data.os.id}
-        disabled
-      />
+      <input type="text" class="form-control" value={data.os.id} disabled />
     </div>
     <div class="col-12 col-md-4 mb-3">
       <label for="status" class="form-label"> Status </label>
-      <input
-        type="text"
-        class="form-control"
-        value={data.os.status}
-        disabled
-      />
+      <input type="text" class="form-control" value={data.os.status} disabled />
     </div>
     <div class="col-12 col-md-4 mb-3">
       <label for="data" class="form-label">Data de Criação</label>
@@ -42,7 +30,7 @@
           data.os.data.toLocaleTimeString()}
         disabled
       />
-    </div>        
+    </div>
     <div class="col-12 col-md-6 mb-3">
       <label for="localizacao" class="form-label"> Localização </label>
       <input
@@ -85,6 +73,67 @@
         disabled
       ></textarea>
     </div>
+    <form action="?/update" method="post" class="col-12 mb-3" use:enhance>
+      <input type="hidden" name="id" value={data.os.id} />
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <label for="status" class="form-label"> Novo Status </label>
+          <select name="status" id="status" class="form-select">
+            <option value="NOVA_SOLICITACAO">Nova Solicitação</option>
+            <option value="EM_ESPERA">Em Espera</option>
+            <option value="EM_ANALISE">Em Análise</option>
+            <option value="CONCLUIDO">Concluido</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-12">
+          <label for="mensagem" class="form-label"> Mensagem </label>
+          <input
+            id="mensagem"
+            type="text"
+            class="form-control"
+            name="mensagem"
+            placeholder="Status atualizado para ..."
+          />
+        </div>
+        <div class="col-md-2 col-12 text-center">
+          <button class="btn btn-primary" type="submit">Atualizar</button>
+        </div>
+      </div>
+    </form>
+    {#if data.os.mensagens}
+      <label for="eventos" class="form-label col-12"> Eventos da OS </label>
+      <table class="table align-baseline col-12">
+        <thead>
+          <tr>
+            <th>Autor</th>
+            <th>Data</th>
+            <th>Mensagem</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each data.os.mensagens as mensagem}
+            <tr>
+              <td>
+                {mensagem.usuario.nome}
+              </td>
+              <td>
+                {mensagem.dataCriacao.toLocaleDateString() +
+                  " " +
+                  mensagem.dataCriacao.toLocaleTimeString()}
+              </td>
+              <td>
+                {mensagem.mensagem}
+              </td>
+              <td>
+                {mensagem.status}
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    {/if}
     {#if data.os.imagem}
       <div class="col-12 mb-3">
         <label for="imagem" class="form-label"> Imagem do Problema </label>
@@ -95,8 +144,5 @@
         />
       </div>
     {/if}
-    <div class="col-12">
-      <button class="btn btn-primary w-100" type="submit"> Enviar </button>
-    </div>
-  </form>
+  </div>
 </main>

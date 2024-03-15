@@ -51,6 +51,7 @@ model Mensagem {
   id          Int      @id @default(autoincrement())
   mensagem    String
   dataCriacao DateTime @default(now())
+  status      Status
 
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
   usuarioId Int
@@ -79,7 +80,7 @@ model OrdemServico {
   usuario   Usuario @relation(fields: [usuarioId], references: [id])
   usuarioId Int
 
-  Mensagem Mensagem[]
+  mensagens Mensagem[]
 }
 
 model Usuario {

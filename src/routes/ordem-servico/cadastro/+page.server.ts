@@ -27,7 +27,7 @@ export const actions = {
         const OS = {
             descricao: data.get("descricao") as string,
             BP: data.get("BP") as string,
-            status: Status.AGUARDANDO
+            status: Status.NOVA_SOLICITACAO
         };
 
         const componenteId = parseInt(data.get("componente") as string);

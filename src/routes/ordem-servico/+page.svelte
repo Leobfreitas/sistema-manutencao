@@ -17,6 +17,7 @@
     status
   );
 
+  //TODO: Usar fuzzy finding: https://fusejs.io/
   function filtrar(
     usuario: string,
     localizacao: string,
