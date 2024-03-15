@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
 }
 
 export const actions = {
-    default: async ({ request }) => {
+    create: async ({ request }) => {
         const data = await request.formData();
         const dependencia = {
             nome: data.get("nome") as string,

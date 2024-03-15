@@ -136,7 +136,7 @@
     {/if}
     {#if data.os.imagem}
       <div class="col-12 mb-3">
-        <label for="imagem" class="form-label"> Imagem do Problema </label>
+        <div class="form-label"> Imagem do Problema </div>
         <img
           src={"../" + data.os.imagem}
           alt="Imagem da OS"

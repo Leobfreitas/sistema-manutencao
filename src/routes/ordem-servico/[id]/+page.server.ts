@@ -65,6 +65,12 @@ export const actions = {
 
     if (!id) throw error(400, "ID não informado");
 
+    await prisma.mensagem.deleteMany({
+      where: {
+        ordemServicoId: parseInt(id)
+      }
+    })
+
     await prisma.ordemServico.delete({
       where: {
         id: parseInt(id)
