@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CardOs from "$lib/components/cardOS.svelte";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -82,7 +83,7 @@
         bind:value={componente}
       />
     </div>
-    <div class="col-12 col-lg-2">
+    <div class="col-12 col-lg-2 mb-3">
       <label for="status" class="form-label">Status da OS</label>
       <select class="form-select" id="status" bind:value={status}>
         <option value="TODOS" selected> Todos </option>
@@ -93,48 +94,14 @@
         <option value="CANCELADO"> Cancelado </option>
       </select>
     </div>
+    {#if osFiltradas && osFiltradas.length > 0}
+      {#each osFiltradas as ordemDeServico}
+        <div class="col-12 col-md-3 mb-2">
+          <CardOs os={ordemDeServico} />
+        </div>
+      {/each}
+    {:else}
+      <p>Nenhuma ordem de serviço encontrada.</p>
+    {/if}
   </div>
-  {#if osFiltradas && osFiltradas.length > 0}
-    <table class="table align-baseline">
-      <thead>
-        <tr>
-          {#if data.usuario && data.usuario.cargo == "ADMINISTRADOR"}
-            <td></td>
-          {/if}
-          <th>Usuário</th>
-          <th>Localização</th>
-          <th>Dependência</th>
-          <th>Componente</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each osFiltradas as ordemDeServico}
-          <tr>
-            {#if data.usuario && data.usuario.cargo == "ADMINISTRADOR"}
-              <td><a href={"/ordem-servico/" + ordemDeServico.id}>✏️</a></td>
-            {/if}
-            <td>
-              {ordemDeServico.usuario.nome}
-            </td>
-            <td>
-              {ordemDeServico.localizacao.nome}
-            </td>
-            <td>
-              {ordemDeServico.dependencia.nome} &mdash; {ordemDeServico
-                .dependencia.identificacaoSeq}
-            </td>
-            <td>
-              {ordemDeServico.componente.nome} #{ordemDeServico.BP}
-            </td>
-            <td>
-              {ordemDeServico.status}
-            </td>
-          </tr>
-        {/each}
-      </tbody>
-    </table>
-  {:else}
-    <p>Nenhuma ordem de serviço encontrada.</p>
-  {/if}
 </div>

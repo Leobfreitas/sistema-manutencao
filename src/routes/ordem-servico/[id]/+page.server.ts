@@ -1,6 +1,7 @@
-import { prisma, stringToStatus } from "$lib";
+import { prisma } from "$lib";
 import { error, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
+import { stringToStatus } from "$lib/util";
 
 export const load: PageServerLoad = async ({ params }) => {
   const os = await prisma.ordemServico.findUnique({

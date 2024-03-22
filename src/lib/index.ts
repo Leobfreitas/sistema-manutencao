@@ -1,20 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
-import { PrismaClient, Status, type Usuario } from "prisma/prisma-client";
+import { PrismaClient, type Usuario } from "prisma/prisma-client";
 import { verificaToken } from "./crypto";
 
 
 export const prisma = new PrismaClient();
-
-export function stringToStatus(status: string) {
-  switch (status) {
-    case 'NOVA_SOLICITACAO': return Status.NOVA_SOLICITACAO;
-    case 'EM_ESPERA': return Status.EM_ESPERA;
-    case 'EM_ANALISE': return Status.EM_ANALISE;
-    case 'CONCLUIDO': return Status.CONCLUIDO;
-    case 'CANCELADO': return Status.CANCELADO;
-    default: return Status.NOVA_SOLICITACAO;
-  }
-}
 
 /**
  *  Função que verifica se o token é válido e retorna o usuário caso seja
