@@ -1,7 +1,7 @@
 import { error } from "@sveltejs/kit";
 import type { LayoutServerLoad } from "./$types";
 import { TipoUsuario } from "prisma/prisma-client";
-import { getUserFromToken } from "$lib";
+import { getUserFromToken } from "$lib/server/database";
 
 export const load: LayoutServerLoad = async ({ cookies }) => {
     const token = cookies.get("token");

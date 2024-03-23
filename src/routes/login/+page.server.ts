@@ -1,8 +1,8 @@
-import { prisma } from "$lib";
 import { error, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import { comparaSenha, geraToken } from "$lib/crypto";
 import { TipoUsuario } from "prisma/prisma-client";
+import { prisma } from "$lib/server/database";
 
 
 export const actions = {

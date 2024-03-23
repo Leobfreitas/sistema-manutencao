@@ -1,4 +1,4 @@
-import { prisma } from "$lib";
+import { prisma } from "$lib/server/database";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ cookies }) => {

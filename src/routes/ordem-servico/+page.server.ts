@@ -1,7 +1,7 @@
-import { getUserFromToken, prisma } from "$lib";
 import { TipoUsuario } from "prisma/prisma-client";
 import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
+import { getUserFromToken, prisma } from "$lib/server/database";
 
 export const load: PageServerLoad = async ({ cookies }) => {
   const token = cookies.get("token");

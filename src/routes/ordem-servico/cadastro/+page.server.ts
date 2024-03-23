@@ -1,8 +1,8 @@
-import { getUserFromToken, prisma } from "$lib";
 import { error } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { Status } from "@prisma/client";
 import { writeFileSync } from "fs";
+import { prisma, getUserFromToken } from "$lib/server/database";
 
 export const load: PageServerLoad = async () => {
     const componentes = await prisma.componente.findMany();

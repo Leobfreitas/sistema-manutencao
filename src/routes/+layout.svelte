@@ -3,7 +3,6 @@
   import "../style/main.scss";
   import type { LayoutData } from "./$types";
   import { onNavigate } from "$app/navigation";
-  import { TipoUsuario } from "prisma/prisma-client";
 
   export let data: LayoutData;
 
