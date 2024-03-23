@@ -42,11 +42,12 @@
 </script>
 
 <div class="container mt-5">
-  <div class="row mb-3">
+  <div class="row mb-2">
     <h1 class="col-8">Ordens de Serviço</h1>
     <div class="col-4 text-end">
       <a href="/ordem-servico/cadastro" class="btn btn-primary">+ Nova</a>
     </div>
+    <hr class="col-12" />
   </div>
   <div class="row mb-3">
     <div class="col-12 col-md-3">
