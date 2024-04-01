@@ -28,7 +28,9 @@
         " " +
         os.dependencia.identificacaoSeq}
     </h6>
-    <p class="card-text">{statusToString(os.status)}</p>
+    <p class="card-text">ID OS: {os.id}</p>
+    <p class="card-text">Usuario: {os.usuario.nome}</p>
+    <p class="card-text {os.status === 'EM_ANALISE' ? 'text-danger': ''}"> <b>{statusToString(os.status)}</b></p>
     <a href="/ordem-servico/{os.id}" class="btn btn-primary w-100">Detalhes</a>
   </div>
   <!-- <div class="card-footer"></div> -->

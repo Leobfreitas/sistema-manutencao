@@ -34,6 +34,7 @@ export const actions = {
     const id = data.get("id") as string;
     const status = data.get("status") as string;
     const mensagem = data.get("mensagem") as string;
+    const idUsuario = data.get("idUsuario") as string;
 
     if (!id) throw error(400, "ID não informado");
     if (!status) throw error(400, "Status não informado");
@@ -51,7 +52,7 @@ export const actions = {
             status: stringToStatus(status),
             usuario: {
               connect: {
-                id: 1
+                id: parseInt(idUsuario)
               }
             }
           }

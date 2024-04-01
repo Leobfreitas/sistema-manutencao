@@ -73,9 +73,12 @@
         disabled
       ></textarea>
     </div>
+    {#if data.usuario?.cargo === "ALUNO" && data.os.status === "EM_ANALISE" || data.usuario?.cargo === "ADMINISTRADOR"}
     <form action="?/update" method="post" class="col-12 mb-3" use:enhance>
       <input type="hidden" name="id" value={data.os.id} />
+      <input type="hidden" name="idUsuario" value={data.usuario.id} />
       <div class="row">
+        {#if data.usuario?.cargo === "ADMINISTRADOR"}          
         <div class="col-md-4 col-12">
           <label for="status" class="form-label"> Novo Status </label>
           <select name="status" id="status" class="form-select">
@@ -86,6 +89,9 @@
             <option value="CANCELADO">Cancelado</option>
           </select>
         </div>
+      {:else}
+      <input type="hidden" name="status" value={"EM_ESPERA"}/>
+        {/if}
         <div class="col-md-6 col-12">
           <label for="mensagem" class="form-label"> Mensagem </label>
           <input
@@ -93,7 +99,9 @@
             type="text"
             class="form-control"
             name="mensagem"
-            placeholder="Status atualizado para ..."
+            placeholder={
+              data.usuario.cargo === "ALUNO" ? "Entre com uma resposta" : "Status atualizado para ..."
+            }
           />
         </div>
         <div class="col-md-2 col-12 text-center">
@@ -101,6 +109,7 @@
         </div>
       </div>
     </form>
+    {/if}
     {#if data.os.mensagens}
       <label for="eventos" class="form-label col-12"> Eventos da OS </label>
       <table class="table align-baseline col-12">

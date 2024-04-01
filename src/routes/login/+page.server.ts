@@ -39,7 +39,7 @@ export const actions = {
             case TipoUsuario.ADMINISTRADOR:
                 throw redirect(302, "/admin/itens/localizacao");
             case TipoUsuario.ALUNO:
-                throw redirect(302, "/aluno");
+                throw redirect(302, "/ordem-servico");
             default:
                 throw error(400, "Cargo inválido.");
         }
