@@ -1,4 +1,4 @@
-import { error } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { Status } from "@prisma/client";
 import { writeFileSync } from "fs";
@@ -53,7 +53,7 @@ export const actions = {
         })
 
         const imagem = data.get("imagem") as File;
-        if (!imagem || imagem.size === 0) return;
+        if (!imagem || imagem.size === 0) throw redirect(302, `/ordem-servico/${resultado.id}`);
 
         try {
             const caminhoImagem = `uploaded/imagens-OS/${resultado.id}_${imagem.name}`;
@@ -66,13 +66,16 @@ export const actions = {
                     imagem: caminhoImagem
                 }
             })
-        } catch (error) {
+            
+        } catch (e) {
             console.error('Erro ao gravar imagem, OS será deletada');
             await prisma.ordemServico.delete({
                 where: {
                     id: resultado.id
                 }
             })
+            throw error(500, 'Erro ao gravar imagem, OS será deletada');
         }
+        throw redirect(302, `/ordem-servico/${resultado.id}`)
     }
 } satisfies Actions;
