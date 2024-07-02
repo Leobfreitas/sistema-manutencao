@@ -10,13 +10,15 @@
   let dependencia: string = "";
   let componente: string = "";
   let status: string = "TODOS";
+  let BP: string = "";
 
   $: osFiltradas = filtrar(
     usuario,
     localizacao,
     dependencia,
     componente,
-    status
+    status,
+    BP
   );
 
   //TODO: Usar fuzzy finding: https://fusejs.io/
@@ -25,7 +27,8 @@
     localizacao: string,
     dependencia: string,
     componente: string,
-    status: string
+    status: string,
+    BP: string
   ) {
     return (
       data.ordensDeServico?.filter((os) => {
@@ -34,6 +37,7 @@
           os.localizacao.nome.includes(localizacao) &&
           os.dependencia.nome.includes(dependencia) &&
           os.componente.nome.includes(componente) &&
+          os.BP?.includes(BP) &&
           (status == "TODOS" || os.status.includes(status))
         );
       }) || []
@@ -94,6 +98,16 @@
           bind:value={componente}
         />
       </div>
+      <div class="mb-2">
+        <label for="BP" class="form-label">Número de BP</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nº Bem Patrimonial"
+          id="BP"
+          bind:value={BP}
+        />
+      </div>      
       <div class="mb-3">
         <label for="status" class="form-label">Status da OS</label>
         <select class="form-select" id="status" bind:value={status}>

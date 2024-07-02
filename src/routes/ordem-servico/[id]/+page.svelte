@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+    import { statusToString } from "$lib/util";
   import type { PageData } from "./$types";
 
   export let data: PageData;
@@ -17,7 +18,7 @@
     </div>
     <div class="col-12 col-md-4 mb-3">
       <label for="status" class="form-label"> Status </label>
-      <input type="text" class="form-control" value={data.os.status} disabled />
+      <input type="text" class="form-control" value={statusToString(data.os.status)} disabled />
     </div>
     <div class="col-12 col-md-4 mb-3">
       <label for="data" class="form-label">Data de Criação</label>
@@ -114,6 +115,7 @@
             placeholder={
               data.usuario.cargo === "ALUNO" ? "Entre com uma resposta" : "Status atualizado para ..."
             }
+            required
           />
         </div>
         <div class="col-md-2 col-12 text-center">
@@ -148,7 +150,7 @@
                 {mensagem.mensagem}
               </td>
               <td>
-                {mensagem.status}
+                {statusToString(mensagem.status)}
               </td>
             </tr>
           {/each}

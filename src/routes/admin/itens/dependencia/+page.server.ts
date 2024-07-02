@@ -21,10 +21,24 @@ export const actions = {
         await prisma.dependencia.create({ data: dependencia });
 
     },
-
     delete: async ({ request }) => {
         const data = await request.formData();
         const id = parseInt(data.get("id") as string);
         await prisma.dependencia.delete({ where: { id } })
+    },
+    update: async ({ request}) => {
+        const data = await request.formData();
+        const id = parseInt(data.get("id") as string);
+        const dependencia = {
+            nome: data.get("update-name") as string,
+            siglaDependencia: data.get("update-sigla") as string,
+            identificacaoSeq: data.get("update-idSeq") as string
+        };
+        await prisma.dependencia.update({
+            where:{
+                id:id
+            },
+            data:dependencia
+        })
     }
 } satisfies Actions;
