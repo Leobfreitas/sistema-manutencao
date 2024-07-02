@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 
+  let editando: number = -1;
+
   export let data: PageData;
 </script>
 
@@ -33,31 +35,67 @@
     </div>
   </form>
 
-  <table class="table align-baseline">
-    <thead>
-      <tr>
-        <th>Nome da Localizacao</th>
-        <th>Sigla da Localizacao</th>
-        <th>Opções</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each data.localizacao as localizacao}
+  <form action="?/update" method="post" id="update-form">
+    <table class="table align-baseline">
+      <thead>
         <tr>
-          <td>
-            {localizacao.nome}
-          </td>
-          <td>
-            {localizacao.siglaLocalizacao}
-          </td>
-          <td>
-            <form method="post" action="?/delete">
-              <input type="hidden" name="id" value={localizacao.id} />
-              <button type="submit" class="btn btn-danger"> Remover </button>
-            </form>
-          </td>
+          <th>Nome da Localizacao</th>
+          <th>Sigla da Localizacao</th>
+          <th>Opções</th>
         </tr>
-      {/each}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {#each data.localizacao as localizacao}
+          {#if localizacao.id === editando}
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="update-name"
+                  id="update-name"
+                  bind:value={localizacao.nome}
+                />
+                <input type="hidden" name="id" value={localizacao.id} />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="update-sigla"
+                  id="update-sigla"
+                  bind:value={localizacao.siglaLocalizacao}
+                />
+              </td>
+              <td>
+                <button class="btn btn-secondary" type="submit">
+                  <i class="fa-solid fa-check"></i>
+                </button>
+              </td>
+            </tr>
+          {:else}
+            <tr>
+              <td>
+                {localizacao.nome}
+              </td>
+              <td>
+                {localizacao.siglaLocalizacao}
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  on:click={() => {
+                    editando = localizacao.id;
+                  }}
+                >
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+              </td>
+            </tr>
+          {/if}
+        {/each}
+      </tbody>
+    </table>
+  </form>
 </div>

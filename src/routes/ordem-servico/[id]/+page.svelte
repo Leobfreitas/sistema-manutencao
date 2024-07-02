@@ -59,9 +59,21 @@
       />
     </div>
     <div class="col-12 col-md-4 mb-3">
-      <label for="BP" class="form-label"> BP </label>
-      <input type="text" class="form-control" value={data.os.BP} disabled />
-    </div>
+      <form action="?/atualizaBP" method="post">
+        <input type="hidden" value={data.os.id} name="id">
+        <label for="BP" class="form-label"> BP </label>
+        <div class="row">
+          <div class="col-9">
+            <input type="text" class="form-control" value={data.os.BP} disabled={data.usuario?.cargo !== "ADMINISTRADOR"} name="novoBp" />      
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success w-100" type="submit">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+        </div>
+       </form>
+      </div>
     <div class="col-12 mb-3">
       <label for="descricao" class="form-label"> Descrição </label>
       <textarea

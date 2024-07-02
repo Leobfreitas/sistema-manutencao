@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
     if (!cookies.get("token")) {
         throw redirect(302, "/login");
     } else {
-        throw redirect(302, "/admin/itens/localizacao");
+        throw redirect(302, "/ordem-servico");
     }
 };
 

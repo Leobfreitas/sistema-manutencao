@@ -67,11 +67,14 @@
           <td>
             <form method="post" action="?/delete">
               <input type="hidden" name="id" value={dependencia.id} />
-              <button type="submit" class="btn btn-danger"> Remover </button>
+              <button type="submit" class="btn btn-danger"> 
+                <i class="fa-solid fa-trash"></i>  
+              </button>
             </form>
           </td>
         </tr>
-      {/each}
-    </tbody>
-  </table>
-</div>
+        {/each}
+      </tbody>
+    </table>
+    <form action="?/update" method="post" id="update-form"></form>
+  </div>

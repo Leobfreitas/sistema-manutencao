@@ -80,5 +80,20 @@ export const actions = {
     })
 
     throw redirect(302, "/ordem-servico");
+  },
+  
+  atualizaBP: async ({ request }) => {
+    const data = await request.formData();
+    const id = parseInt(data.get("id") as string);
+    const novoBp = data.get("novoBp") as string;
+  
+    await prisma.ordemServico.update({ 
+      where:{
+        id
+      },
+      data:{
+        BP: novoBp
+      }
+    })
   }
 } satisfies Actions;

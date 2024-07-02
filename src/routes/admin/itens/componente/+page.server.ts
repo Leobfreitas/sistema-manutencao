@@ -19,9 +19,15 @@ export const actions = {
         await prisma.componente.create({ data: componente })
 
     },
-    delete: async ({ request }) => {
+    update: async ({ request }) => {
         const data = await request.formData();
         const id = parseInt(data.get("id") as string);
-        await prisma.componente.delete({ where: { id } })
+        const updateName = data.get("update-name") as string;
+        await prisma.componente.update({
+            where: { id },
+            data: {
+                nome: updateName
+            }
+        })
     }
 } satisfies Actions;

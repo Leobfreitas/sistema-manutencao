@@ -57,13 +57,13 @@
       />
     </div>
     <div class="col-12 mb-3">
-      <label for="descricao" class="form-label"> Descrição </label>
+      <label for="descricao" class="form-label"> Descrição</label>
       <textarea
         name="descricao"
         id="descricao"
         rows="10"
         class="form-control"
-        placeholder="Descreva o problema"
+        placeholder="Relate o problema encontrado"
       ></textarea>
     </div>
     <div class="col-12 mb-3">

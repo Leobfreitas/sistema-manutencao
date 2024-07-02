@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 
+  let editando: number = -1;
+
   export let data: PageData;
 </script>
 
@@ -23,27 +25,54 @@
     </div>
   </form>
 
-  <table class="table align-baseline">
-    <thead>
-      <tr>
-        <th>Nome do Componente</th>
-        <th>Opções</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each data.componentes as componente}
+  <form action="?/update" method="post" id="update-form">
+    <table class="table align-baseline">
+      <thead>
         <tr>
-          <td>
-            {componente.nome}
-          </td>
-          <td>
-            <form method="post" action="?/delete">
-              <input type="hidden" name="id" value={componente.id} />
-              <button type="submit" class="btn btn-danger"> Remover </button>
-            </form>
-          </td>
+          <th>Nome do Componente</th>
+          <th>Opções</th>
         </tr>
-      {/each}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {#each data.componentes as componente}
+          {#if componente.id === editando}
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="update-name"
+                  id="update-name"
+                  bind:value={componente.nome}
+                />
+                <input type="hidden" name="id" value={componente.id} />
+              </td>
+              <td>
+                <button class="btn btn-secondary" type="submit">
+                  <i class="fa-solid fa-check"></i>
+                </button>
+              </td>
+            </tr>
+          {:else}
+            <tr>
+              <td>
+                {componente.nome}
+              </td>
+              <td>
+                <button
+                  class="btn btn-secondary"
+                  type="button"
+                  on:click={() => {
+                    editando = componente.id;
+                  }}
+                >
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+              </td>
+            </tr>
+          {/if}
+        {/each}
+      </tbody>
+    </table>
+  </form>
 </div>
